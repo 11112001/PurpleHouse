@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Púrpura — Club Privado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#0b0f0c;
+    --panel:#12170f;
+    --panel-2:#171d14;
+    --amethyst:#5b3a7a;
+    --amethyst-deep:#3a2450;
+    --amethyst-light:#a980c9;
+    --gold:#b99457;
+    --gold-soft:#8a7148;
+    --ivory:#eee6d8;
+    --sage:#8d9a80;
+    --line:rgba(238,230,216,0.14);
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--noir);
+    color:var(--ivory);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.wordmark{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    margin:0;
+    color:var(--ivory);
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 40px;}
+
+  ::selection{background:var(--amethyst); color:var(--ivory);}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,15,12,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:20px 40px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .wordmark{font-size:1.35rem; letter-spacing:0.02em;}
+  .wordmark em{font-style:italic; color:var(--amethyst-light);}
+  nav.links{display:flex; gap:34px; font-size:0.92rem; color:var(--sage);}
+  nav.links a{text-decoration:none; transition:color .3s ease;}
+  nav.links a:hover{color:var(--gold);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items:stretch;
+    min-height:88vh;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-copy{
+    display:flex; flex-direction:column; justify-content:center;
+    padding:60px 64px;
+    max-width:640px;
+  }
+  .hero-copy .kicker{
+    color:var(--gold);
+    font-size:0.95rem;
+    font-style:italic;
+    font-family:'Fraunces', serif;
+    margin-bottom:22px;
+  }
+  .hero-copy h1{
+    font-size:clamp(2.6rem, 5vw, 4.1rem);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+  }
+  .hero-copy h1 em{font-style:italic; color:var(--amethyst-light); font-weight:400;}
+  .hero-copy p{
+    margin-top:26px;
+    color:var(--sage);
+    font-size:1.08rem;
+    max-width:480px;
+  }
+  .hero-actions{display:flex; gap:22px; margin-top:40px; align-items:center;}
+  .btn{
+    display:inline-block;
+    padding:14px 30px;
+    border:1px solid var(--gold);
+    color:var(--ivory);
+    text-decoration:none;
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+    transition:background .35s ease, color .35s ease;
+  }
+  .btn:hover{background:var(--gold); color:var(--noir);}
+  .btn.ghost{border-color:var(--line); color:var(--sage);}
+  .btn.ghost:hover{border-color:var(--sage); background:transparent; color:var(--ivory);}
+
+  .hero-media{position:relative; overflow:hidden; background:#000;}
+  .hero-media img{
+    width:100%; height:100%; object-fit:cover;
+    filter:saturate(1.05) contrast(1.03);
+  }
+  .hero-media::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(11,15,12,0) 40%, rgba(11,15,12,0.55) 100%),
+               linear-gradient(90deg, rgba(11,15,12,0.55) 0%, rgba(11,15,12,0) 22%);
+  }
+  .hero-media .caption{
+    position:absolute; left:28px; bottom:26px; z-index:2;
+    font-family:'Fraunces', serif; font-style:italic;
+    color:var(--ivory); font-size:1rem; opacity:0.85;
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .section-head .eyebrow{
+    font-family:'Fraunces', serif; font-style:italic;
+    color:var(--gold); font-size:1rem; margin-bottom:16px;
+  }
+  .section-head h2{
+    font-size:clamp(2rem, 3.4vw, 2.8rem);
+    line-height:1.15;
+  }
+  .section-head p{color:var(--sage); margin-top:20px; font-size:1.05rem;}
+
+  /* ---------- MANIFESTO ---------- */
+  .manifesto{
+    background:var(--panel);
+    border-bottom:1px solid var(--line);
+  }
+  .manifesto .wrap{max-width:840px;}
+  .manifesto blockquote{
+    font-family:'Fraunces', serif;
+    font-weight:400; font-style:italic;
+    font-size:clamp(1.5rem, 2.6vw, 2.15rem);
+    line-height:1.5;
+    color:var(--ivory);
+    margin:0;
+    text-align:center;
+  }
+  .manifesto cite{
+    display:block; text-align:center; margin-top:28px;
+    font-style:normal; font-size:0.85rem; color:var(--sage);
+    letter-spacing:0.03em;
+  }
+
+  /* ---------- PROS / CONTRAS ---------- */
+  .balance{
+    display:grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap:64px;
+  }
+  .balance-col h3{
+    font-size:1.5rem;
+    margin-bottom:8px;
+  }
+  .balance-col .sub{color:var(--sage); font-size:0.92rem; margin-bottom:36px; font-style:italic; font-family:'Fraunces',serif;}
+  .balance-divider{background:var(--line);}
+  .balance-item{
+    padding:22px 0;
+    border-top:1px solid var(--line);
+  }
+  .balance-item:first-of-type{border-top:none; padding-top:0;}
+  .balance-item h4{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:500;
+    font-size:1.02rem;
+    margin:0 0 8px 0;
+    color:var(--ivory);
+  }
+  .balance-item p{margin:0; color:var(--sage); font-size:0.96rem;}
+  .balance-col.pros .balance-item h4{color:var(--amethyst-light);}
+  .balance-col.contras .balance-item h4{color:var(--gold);}
+
+  /* ---------- PURPLE KUSH BAND ---------- */
+  .kush-intro{
+    background:
+      linear-gradient(180deg, rgba(11,15,12,0.35), rgba(11,15,12,0.92)),
+      linear-gradient(90deg, rgba(58,36,80,0.35), rgba(11,15,12,0.2));
+    background-color:var(--amethyst-deep);
+    position:relative;
+    border-bottom:1px solid var(--line);
+    padding:0;
+  }
+  .kush-grid{
+    display:grid; grid-template-columns: 0.9fr 1.1fr;
+    align-items:center;
+  }
+  .kush-media{height:100%; min-height:520px; position:relative;}
+  .kush-media img{width:100%; height:100%; object-fit:cover;}
+  .kush-copy{padding:70px 64px;}
+  .kush-copy .eyebrow{font-family:'Fraunces',serif; font-style:italic; color:var(--gold); margin-bottom:18px; display:block;}
+  .kush-copy h2{font-size:clamp(2.1rem,3.6vw,3rem); line-height:1.1;}
+  .kush-copy h2 em{color:var(--amethyst-light); font-style:italic;}
+  .kush-copy p{color:#cfc6da; margin-top:22px; max-width:520px;}
+
+  /* ---------- REGULAR BAND ---------- */
+  .regular-intro{
+    background:
+      linear-gradient(180deg, rgba(11,15,12,0.35), rgba(11,15,12,0.92)),
+      linear-gradient(90deg, rgba(141,154,128,0.28), rgba(11,15,12,0.2));
+    background-color:var(--panel-2);
+    position:relative;
+    border-bottom:1px solid var(--line);
+    padding:0;
+  }
+  .regular-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr;
+    align-items:center;
+  }
+  .regular-media{height:100%; min-height:480px; position:relative;}
+  .regular-media img{width:100%; height:100%; object-fit:cover;}
+  .regular-copy{padding:70px 64px;}
+  .regular-copy .eyebrow{font-family:'Fraunces',serif; font-style:italic; color:var(--sage); margin-bottom:18px; display:block;}
+  .regular-copy h2{font-size:clamp(2rem,3.4vw,2.7rem); line-height:1.15;}
+  .regular-copy h2 em{color:var(--gold); font-style:italic;}
+  .regular-copy p{color:#cfc6da; margin-top:20px; max-width:520px;}
+  .regular-copy p + p{margin-top:14px;}
+  .regular-tags{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .regular-tags span{
+    border:1px solid var(--line); color:var(--sage);
+    font-size:0.82rem; padding:6px 14px; letter-spacing:0.02em;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline-section{background:var(--noir);}
+  .timeline{
+    position:relative;
+    margin-top:20px;
+    padding-left:2px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute; left:120px; top:8px; bottom:8px;
+    width:1px; background:var(--line);
+  }
+  .t-item{
+    display:grid;
+    grid-template-columns:120px 40px 1fr;
+    margin-bottom:56px;
+  }
+  .t-item:last-child{margin-bottom:0;}
+  .t-year{
+    font-family:'Fraunces', serif; font-style:italic;
+    color:var(--gold); font-size:1.15rem; padding-top:2px;
+  }
+  .t-dot{position:relative;}
+  .t-dot::before{
+    content:"";
+    position:absolute; left:0; top:8px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--amethyst-light);
+    box-shadow:0 0 0 4px rgba(169,128,201,0.15);
+  }
+  .t-body h4{
+    font-family:'IBM Plex Sans'; font-weight:500;
+    font-size:1.08rem; margin:0 0 10px 0; color:var(--ivory);
+  }
+  .t-body p{margin:0; color:var(--sage); max-width:600px;}
+
+  /* ---------- SENSORY ---------- */
+  .sensory{background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .sensory-row{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:0;
+  }
+  .sensory-item{
+    padding:36px 44px;
+    border-left:1px solid var(--line);
+  }
+  .sensory-item:first-child{border-left:none;}
+  .sensory-item .label{
+    font-family:'Fraunces', serif; font-style:italic;
+    color:var(--gold); font-size:1rem; margin-bottom:14px; display:block;
+  }
+  .sensory-item p{margin:0; color:var(--sage); font-size:0.96rem;}
+
+  /* ---------- GALLERY / CULTURA ---------- */
+  .gallery-wall{background:var(--noir);}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:44px;
+    margin-top:20px;
+  }
+  .frame{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    padding:18px;
+    transition:border-color .35s ease;
+  }
+  .frame:hover{border-color:var(--gold-soft);}
+  .frame .frame-media{
+    background:#0e0e0e;
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    margin-bottom:18px;
+  }
+  .frame .frame-media img{width:100%; height:100%; object-fit:contain;}
+  .frame h4{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:1.05rem; margin:0 0 8px 0;
+  }
+  .frame p{margin:0; color:var(--sage); font-size:0.88rem; line-height:1.55;}
+
+  /* ---------- CTA / MEMBERSHIP ---------- */
+  .cta{
+    background:linear-gradient(120deg, var(--amethyst-deep), var(--noir) 70%);
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .cta .wrap{max-width:680px;}
+  .cta h2{font-size:clamp(1.9rem,3.2vw,2.6rem);}
+  .cta h2 em{font-style:italic; color:var(--amethyst-light);}
+  .cta p{color:var(--sage); margin:22px 0 38px 0;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:64px 0 46px 0;}
+  .footer-grid{
+    display:grid; grid-template-columns:1.3fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:44px;
+    border-bottom:1px solid var(--line);
+  }
+  .footer-grid h5{
+    font-family:'IBM Plex Sans'; font-weight:500;
+    color:var(--ivory); font-size:0.92rem; margin:0 0 16px 0;
+  }
+  .footer-grid p, .footer-grid a{
+    color:var(--sage); font-size:0.9rem; text-decoration:none; display:block; margin-bottom:8px;
+  }
+  .footer-grid a:hover{color:var(--gold);}
+  .disclaimer{
+    margin-top:32px;
+    color:#6f7a66;
+    font-size:0.8rem;
+    line-height:1.7;
+    max-width:820px;
+  }
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:28px; font-size:0.82rem; color:#5e6857;
+  }
+
+  @media (max-width: 880px){
+    .wrap{padding:0 24px;}
+    .nav-inner{padding:18px 24px;}
+    nav.links{display:none;}
+    .hero{grid-template-columns:1fr; min-height:auto;}
+    .hero-media{height:340px; order:-1;}
+    .hero-copy{padding:48px 26px;}
+    .balance{grid-template-columns:1fr; gap:40px;}
+    .balance-divider{display:none;}
+    .kush-grid{grid-template-columns:1fr;}
+    .kush-media{min-height:320px;}
+    .kush-copy{padding:48px 26px;}
+    .timeline::before{left:14px;}
+    .t-item{grid-template-columns:26px 1fr; gap:16px;}
+    .t-year{grid-column:1/3; padding-top:0; margin-bottom:10px;}
+    .t-dot::before{left:4px;}
+    .sensory-row{grid-template-columns:1fr;}
+    .sensory-item{border-left:none; border-top:1px solid var(--line); padding:28px 0;}
+    .sensory-item:first-child{border-top:none;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr; gap:28px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="wordmark">Casa <em>Púrpura</em></div>
+    <nav class="links">
+      <a href="#club">El club</a>
+      <a href="#equilibrio">Luces y sombras</a>
+      <a href="#kush">Purple Kush</a>
+      <a href="#regular">Regular</a>
+      <a href="#cultura">Cultura</a>
+      <a href="#contacto">Membresía</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="club">
+  <div class="hero-copy">
+    <span class="kicker">Un club privado, no una tienda</span>
+    <h1>El placer lento <em>de la flor</em></h1>
+    <p>Casa Púrpura reúne a quienes entienden el cannabis como se entiende un buen whisky o un habano: con tiempo, curiosidad y respeto por el ritual. Un espacio para explorar el uso recreativo con la cabeza fría.</p>
+    <div class="hero-actions">
+      <a href="#kush" class="btn">Conocer la Purple Kush</a>
+      <a href="#equilibrio" class="btn ghost">Ver pros y contras</a>
+    </div>
+  </div>
+  <div class="hero-media">
+    <img src="images/hierbas/purple-kush/purple-kush.jpg" alt="Cogollo de Purple Kush con tonos violeta">
+    <span class="caption">Purple Kush — la flor que le dio nombre a la casa</span>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="wrap">
+    <blockquote>“No abrimos la puerta a cualquiera que quiera fumar rápido. La abrimos a quien quiere entender qué está fumando, por qué, y hasta dónde.”</blockquote>
+    <cite>— Filosofía de admisión, Casa Púrpura</cite>
+  </div>
+</section>
+
+<section id="equilibrio">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Con la guardia en alto</span>
+      <h2>Toda flor tiene espinas</h2>
+      <p>El uso recreativo de la marihuana trae beneficios reales y riesgos reales. En Casa Púrpura no vendemos una sola cara de la moneda: la disfrutamos con los ojos abiertos.</p>
+    </div>
+
+    <div class="balance">
+      <div class="balance-col pros">
+        <h3>Lo que ofrece</h3>
+        <span class="sub">cuando el consumo es consciente</span>
+
+        <div class="balance-item">
+          <h4>Relajación genuina</h4>
+          <p>Reduce la tensión física y mental, y suele acompañar bien el cierre del día o los espacios de ocio compartido.</p>
+        </div>
+        <div class="balance-item">
+          <h4>Un ritual social</h4>
+          <p>Fumar en compañía tiene su propia coreografía: se comparte, se conversa, se baja el ritmo. Es, para muchos, una excusa para estar presentes.</p>
+        </div>
+        <div class="balance-item">
+          <h4>Placer sensorial</h4>
+          <p>Aromas, sabores y texturas distintos según la genética de cada planta —igual que ocurre con el vino o el café de especialidad.</p>
+        </div>
+        <div class="balance-item">
+          <h4>Percepción y creatividad</h4>
+          <p>Muchos consumidores reportan una mirada distinta sobre la música, el arte o las ideas propias durante el efecto.</p>
+        </div>
+      </div>
+
+      <div class="balance-divider"></div>
+
+      <div class="balance-col contras">
+        <h3>Lo que exige respeto</h3>
+        <span class="sub">porque el placer también se administra</span>
+
+        <div class="balance-item">
+          <h4>Efecto sobre el juicio</h4>
+          <p>Afecta la coordinación, el tiempo de reacción y la memoria a corto plazo. No es momento para conducir ni para decisiones importantes.</p>
+        </div>
+        <div class="balance-item">
+          <h4>Riesgo respiratorio al fumar</h4>
+          <p>Inhalar humo —de cualquier planta— irrita las vías respiratorias. Vaporizar o consumir de otras formas reduce, pero no elimina, ese riesgo.</p>
+        </div>
+        <div class="balance-item">
+          <h4>Tolerancia y hábito</h4>
+          <p>El uso frecuente puede generar tolerancia y una dependencia psicológica que vale la pena vigilar, especialmente en quienes ya tienen ansiedad de base.</p>
+        </div>
+        <div class="balance-item">
+          <h4>Marco legal variable</h4>
+          <p>La legalidad y las cantidades permitidas cambian radicalmente según el país o el estado. Conocer la ley local es parte del ritual, no un detalle menor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kush-intro" id="kush">
+  <div class="kush-grid">
+    <div class="kush-media">
+      <img src="images/hierbas/purple-kush/purple-kush.jpg" alt="Detalle de tricomas y pistilos violetas de la Purple Kush">
+    </div>
+    <div class="kush-copy">
+      <span class="eyebrow">La flor insignia</span>
+      <h2>Purple Kush, <em>la aristócrata</em> de la costa oeste</h2>
+      <p>Ninguna variedad explica mejor el nombre de esta casa. Índica pura, de efecto profundo y color imposible, la Purple Kush no solo perfuma una habitación: perfuma toda una cultura.</p>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">De Afganistán a Oakland</span>
+      <h2>Una historia escrita en violeta</h2>
+      <p>La leyenda de la Purple Kush se cuenta más en historias de cultivadores que en registros oficiales. Así se suele narrar su camino.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-year">Landraces</div>
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <h4>Hindu Kush y Purple Afghani</h4>
+          <p>El linaje de la Purple Kush se remonta a variedades landrace de las montañas del Hindu Kush, entre Afganistán y Pakistán: plantas índica robustas, adaptadas al frío y con pigmentos violetas naturales.</p>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-year">Años 90</div>
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <h4>El cruce en la costa oeste</h4>
+          <p>Cultivadores de California cruzan esas genéticas para estabilizar una índica de color intenso, aroma dulce y efecto sedante marcado: nace lo que hoy conocemos como Purple Kush.</p>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-year">2000s</div>
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <h4>Oakland la adopta como propia</h4>
+          <p>La variedad se asocia fuertemente con Oakland, donde bancos de semillas y cultivadores locales la popularizan como una de las índicas de referencia del cannabis californiano.</p>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-year">Boom medicinal</div>
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <h4>De los dispensarios al mito</h4>
+          <p>Con la expansión del cannabis medicinal en California, la Purple Kush se vuelve habitual en dispensarios, apreciada por su efecto relajante de cuerpo completo.</p>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-year">Hoy</div>
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <h4>Ícono pop del cannabis</h4>
+          <p>Aparece en canciones, en arte urbano y en la iconografía de la cultura cannábica: su color la volvió una de las variedades más reconocibles del mundo, más allá de su efecto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sensory">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:36px;">
+      <span class="eyebrow">Notas de cata</span>
+      <h2>Cómo se reconoce</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="sensory-row">
+      <div class="sensory-item">
+        <span class="label">Aspecto</span>
+        <p>Cogollos densos y compactos, con hojas que van del verde oscuro al violeta profundo, cubiertos de tricomas plateados que le dan un brillo casi escarchado.</p>
+      </div>
+      <div class="sensory-item">
+        <span class="label">Aroma</span>
+        <p>Dulce y terroso, con notas de uva y una base amaderada de incienso que recuerda a su herencia del Hindu Kush.</p>
+      </div>
+      <div class="sensory-item">
+        <span class="label">Efecto</span>
+        <p>Índica de cuerpo completo: relajación profunda, calma mental y una somnolencia que la hace predilecta para el cierre del día, no para empezarlo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="regular-intro" id="regular">
+  <div class="regular-grid">
+    <div class="regular-copy">
+      <span class="eyebrow">La flor de todos los días</span>
+      <h2>Regular, <em>la de confianza</em> de la casa</h2>
+      <p>En el vocabulario cannábico, "regular" no es sinónimo de básica ni de segunda categoría: es la flor de referencia, sin genética de autor ni linaje con historia propia como la Purple Kush. Es cannabis estándar, cultivada de forma constante y consistente, pensada para el consumo cotidiano más que para la ocasión especial.</p>
+      <p>Mientras la Purple Kush es la pieza de colección —la que se presenta, se cuenta y se saborea despacio—, la Regular es la que siempre está disponible: un perfil equilibrado, previsible y fácil de disfrutar, ideal para quienes recién se acercan al club o simplemente quieren una experiencia sin sorpresas.</p>
+      <div class="regular-tags">
+        <span>Sin genética de autor</span>
+        <span>Perfil equilibrado</span>
+        <span>Consumo diario</span>
+        <span>Buena relación calidad-precio</span>
+      </div>
+    </div>
+    <div class="regular-media">
+      <img src="images/hierbas/regular/regular.jpg" alt="Cogollos de flor Regular servidos desde un frasco de vidrio">
+    </div>
+  </div>
+</section>
+
+<section class="sensory" style="border-top:none;">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:36px;">
+      <span class="eyebrow">Notas de cata</span>
+      <h2>Cómo se reconoce la Regular</h2>
+      <p>No busca competir con la Purple Kush en espectáculo: busca ser confiable, sesión tras sesión.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="sensory-row">
+      <div class="sensory-item">
+        <span class="label">Aspecto</span>
+        <p>Cogollos de tamaño y densidad medios, verde clásico, sin las tonalidades violeta que distinguen a las genéticas especiales de la casa.</p>
+      </div>
+      <div class="sensory-item">
+        <span class="label">Aroma</span>
+        <p>Herbal y terroso, más sutil y directo, sin las notas dulces o afrutadas de una variedad curada.</p>
+      </div>
+      <div class="sensory-item">
+        <span class="label">Efecto</span>
+        <p>Balanceado y moderado: ni tan sedante como una índica de autor ni tan intenso como una sativa marcada. Pensada para acompañar, no para protagonizar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-wall" id="cultura">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">La otra cara de la cultura</span>
+      <h2>El lado pop e irreverente</h2>
+      <p>No todo en el cannabis es ceremonia y buen gusto: también es meme, es calle, es humor. Casa Púrpura también le hace espacio a esa parte, con la misma curaduría.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="frame">
+        <div class="frame-media"><img src="images/cultura/weed_Face.png" alt="Ilustración de una hoja de cannabis con rostro sonriente"></div>
+        <h4>El anfitrión de siempre</h4>
+        <p>La cara sonriente y ojos enrojecidos es uno de los símbolos más repetidos del fan art cannábico: el humor como puerta de entrada a la cultura.</p>
+      </div>
+      <div class="frame">
+        <div class="frame-media"><img src="images/cultura/walking_Cush.png" alt="Personaje animado de cogollo caminando con gesto de paz"></div>
+        <h4>El cogollo andante</h4>
+        <p>Un guiño a la estética urbana del streetwear cannábico: el cogollo convertido en personaje, relajado, con el gesto de paz como saludo.</p>
+      </div>
+      <div class="frame">
+        <div class="frame-media"><img src="images/cultura/MakonhaJoker.jpg" alt="Personaje estilo cómic con estética urbana fumando"></div>
+        <h4>Estética urbana</h4>
+        <p>El cruce entre cultura pop, cómic y cannabis: una iconografía que circula en redes y en el arte digital independiente de la comunidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contacto">
+  <div class="wrap">
+    <h2>¿Listo para entrar <em>con calma</em>?</h2>
+    <p>Casa Púrpura no es para apurados. Es para quienes quieren conocer, comparar y disfrutar con criterio. La membresía es limitada y por invitación.</p>
+    <a href="#" class="btn">Solicitar membresía</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h5>Casa Púrpura</h5>
+        <p>Un club privado dedicado al uso recreativo, consciente y bien informado del cannabis.</p>
+      </div>
+      <div>
+        <h5>Navegación</h5>
+        <a href="#club">El club</a>
+        <a href="#equilibrio">Luces y sombras</a>
+        <a href="#kush">Purple Kush</a>
+        <a href="#cultura">Cultura</a>
+      </div>
+      <div>
+        <h5>Aviso</h5>
+        <a href="#">Solo para mayores de edad</a>
+        <a href="#">Consumo responsable</a>
+        <a href="#">Legislación local</a>
+      </div>
+    </div>
+    <p class="disclaimer">Este sitio tiene fines informativos y culturales sobre el uso recreativo del cannabis. No constituye consejo médico ni promueve el consumo en lugares donde sea ilegal. El acceso está restringido a personas mayores de edad según la legislación de cada país o estado. Consume con información, con moderación y dentro del marco legal que te corresponda.</p>
+    <div class="foot-bottom">
+      <span>Casa Púrpura</span>
+      <span>Solo mayores de edad</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
